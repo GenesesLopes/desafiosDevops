@@ -1,6 +1,6 @@
 FROM node:alpine
 
-RUN apk update && apk add curl 
+RUN apk update && apk add wget 
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
@@ -9,4 +9,10 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 WORKDIR /usr/src/app
 
+COPY . .
+
+RUN yarn install
+
 EXPOSE 3000
+
+CMD [ "node index.js" ]
